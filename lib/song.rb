@@ -4,7 +4,7 @@ class Song
 
   @@all = []
 
-  def initialize(name, artist=nil)
+  def initialize(name)
     @name = name
     @@all << self
   end
@@ -23,6 +23,7 @@ class Song
 
   def artist_name=(name)
     self.artist = Artist.find_or_create_by_name(name)
+    artist.add_song(self)
   end
 
   def save
@@ -33,7 +34,6 @@ class Song
   def self.find_by_artist(artist)
     binding.pry
     Song.all.select do | song |
-      binding.pry
       song.artist == artist
     end
   end
